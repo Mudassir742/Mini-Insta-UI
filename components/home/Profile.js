@@ -1,14 +1,29 @@
 import React from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
-import { color } from 'react-native-reanimated';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import {Data} from '../../data/Data';
+
 const Profile = () => {
+  const windowWidth = Dimensions.get('window').width;
+
+  const tabBarHeight = useBottomTabBarHeight();
+
+  const size = windowWidth / 3;
+
   return (
     <View style={{flex: 1}}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{paddingBottom: tabBarHeight}}>
         <View style={styles.userInfo}>
           <View style={styles.userPic}>
             <AntDesign name="user" size={50} />
@@ -32,20 +47,36 @@ const Profile = () => {
             </View>
           </View>
         </View>
-        <View style={styles.userDataHeader}>
-          <View style={styles.dataHeaderTab}>
-            <View style={{marginRight: 20, ...styles.tabHeading}}>
-              <Text style={styles.text}>Photos</Text>
-            </View>
-            <View style={{marginRight: 20}}>
-              <Text style={styles.text}>Vedios</Text>
+        <View>
+          <View style={styles.userDataHeader}>
+            <View style={styles.dataHeaderTab}>
+              <View style={{marginRight: 20, ...styles.tabHeading}}>
+                <Text style={styles.text}>Photos</Text>
+              </View>
+              <View style={{marginRight: 20}}>
+                <Text style={styles.text}>Vedios</Text>
+              </View>
+              <View>
+                <Text style={styles.text}>Tagged</Text>
+              </View>
             </View>
             <View>
-              <Text style={styles.text}>Tagged</Text>
+              <MaterialCommunityIcons name="dots-horizontal" size={30} />
             </View>
           </View>
-          <View>
-            <MaterialCommunityIcons name="dots-horizontal" size={30} />
+
+          <View style={styles.imageContainer}>
+            {Data.map(item => {
+              return (
+                <View key={item.key}>
+                  <Image
+                    source={item.img}
+                    resizeMode="cover"
+                    style={styles.imageWrap}
+                  />
+                </View>
+              );
+            })}
           </View>
         </View>
       </ScrollView>
@@ -120,15 +151,28 @@ const styles = StyleSheet.create({
   tabHeading: {
     borderBottomColor: 'red',
     borderBottomWidth: 2,
-    padding:5,
+    padding: 5,
   },
 
-  text:{
-      fontSize:18,
-      fontWeight:'bold',
-      letterSpacing:1,
-      color:'white'
-    }
+  text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    letterSpacing: 1,
+    color: 'white',
+  },
+  imageContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    flex: 1 / 2,
+    marginVertical: 5,
+  },
+
+  imageWrap: {
+    borderWidth: 2,
+    borderColor: 'black',
+    height: Dimensions.get('window').height / 3 - 12,
+    width: Dimensions.get('window').width / 2 - 4,
+  },
 });
 
 export default Profile;

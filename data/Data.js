@@ -35,4 +35,11 @@
         userName:"@mraees",
         img:require("../assets/photo5.jpg")
     },
+
+    {
+        key:nanoid(),
+        firstName:'Ahmed',
+        userName:"@hunter",
+        img:require("../assets/photo6.jpg")
+    }
 ]
