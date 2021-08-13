@@ -11,18 +11,21 @@ import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {Data} from '../../data/Data';
 
-const Profile = () => {
-  const windowWidth = Dimensions.get('window').width;
+const Profile = ({navigation}) => {
 
   const tabBarHeight = useBottomTabBarHeight();
 
-  const size = windowWidth / 3;
-
   return (
     <View style={{flex: 1}}>
+      <View style={styles.profileHeader}>
+        <Ionicons name="arrow-back" size={30} color="white" />
+        <Text style={styles.headerText}>Profile</Text>
+        <Ionicons name="settings" size={30} color="white" />
+      </View>
       <ScrollView contentContainerStyle={{paddingBottom: tabBarHeight}}>
         <View style={styles.userInfo}>
           <View style={styles.userPic}>
@@ -85,6 +88,18 @@ const Profile = () => {
 };
 
 const styles = StyleSheet.create({
+  profileHeader: {
+    marginHorizontal: 25,
+    marginVertical: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  headerText: {
+    fontSize: 20,
+    letterSpacing: 1,
+    fontWeight: 'bold',
+  },
   userInfo: {
     alignItems: 'center',
     justifyContent: 'center',
