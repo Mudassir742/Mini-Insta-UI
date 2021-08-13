@@ -1,5 +1,5 @@
 import React from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Ionicons from "react-native-vector-icons/Ionicons"
 import FontAwesome from "react-native-vector-icons/FontAwesome"
 
@@ -35,7 +35,14 @@ const TabNavigation = () => {
             },
             tabBarActiveTintColor:'red',
             tabBarInactiveTintColor:'white',
-            tabBarShowLabel:false
+            tabBarShowLabel:false,
+            tabBarStyle:{
+                position:'absolute',
+                height:70,
+                borderRadius:20,
+                marginHorizontal:10,
+                elevation:0,
+            }
         })}>
             <Tab.Screen name="Home" component={Home} options={{headerShown:false }}/>
             <Tab.Screen name="Search" component={Search} />

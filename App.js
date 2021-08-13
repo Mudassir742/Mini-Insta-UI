@@ -8,7 +8,6 @@ import TabNavigation from './components/navigations/TabNavigation';
 
 const App = () => {
   return (
-    
       <NavigationContainer>
         <TabNavigation/>
       </NavigationContainer>

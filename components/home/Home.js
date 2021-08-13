@@ -1,18 +1,23 @@
 import React from 'react';
 import {View, Text, Button, Image, StyleSheet, ScrollView} from 'react-native';
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
-import { Data } from '../../data/Data';
+
+import {Data} from '../../data/Data';
 
 const Home = ({navigation}) => {
+  const tabBarHeight = useBottomTabBarHeight();
+
   return (
     <View style={{flex: 1}}>
       <View style={styles.header}>
         <AntDesign name="appstore1" size={28} />
         <AntDesign name="message1" size={28} />
       </View>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{paddingBottom: tabBarHeight}}>
         <View style={styles.storyContainer}>
           <ScrollView horizontal={true}>
             <View style={styles.addStory}>
@@ -36,38 +41,45 @@ const Home = ({navigation}) => {
           </ScrollView>
         </View>
         {Data.map(item => {
-          return(
-          <View style={styles.userPostCard} key={item.key}>
-            <View style={styles.postHeader}>
-              <View style={styles.userInfo}>
-                <AntDesign name="user" size={35} />
-                <View style={styles.userName}>
-                  <Text style={styles.firstName}>{item.firstName}</Text>
-                  <Text>{item.userName}</Text>
+          return (
+            <View style={styles.userPostCard} key={item.key}>
+              <View style={styles.postHeader}>
+                <View style={styles.userInfo}>
+                  <View style={styles.userPic}>
+                    <AntDesign name="user" size={35} />
+                  </View>
+                  <View style={styles.userName}>
+                    <Text style={styles.firstName}>{item.firstName}</Text>
+                    <Text>{item.userName}</Text>
+                  </View>
                 </View>
+                <MaterialCommunityIcons name="dots-horizontal" size={30} />
               </View>
-              <MaterialCommunityIcons name="dots-horizontal" size={30} />
-            </View>
-            <View style={styles.postImage}>
-              <Image
-                source={item.img}
-                style={styles.image}
-                resizeMode="cover"
-              />
-            </View>
-            <View style={styles.postFooter}>
-              <View style={styles.postBtns}>
-                <AntDesign name="hearto" size={25} style={{marginRight: 10}} />
-                <AntDesign
-                  name="message1"
-                  size={25}
-                  style={{marginRight: 10}}
+              <View style={styles.postImage}>
+                <Image
+                  source={item.img}
+                  style={styles.image}
+                  resizeMode="cover"
                 />
-                <Feather name="send" size={25} style={{marginRight: 10}} />
               </View>
-              <Text>25 minutes ago</Text>
+              <View style={styles.postFooter}>
+                <View style={styles.postBtns}>
+                  <AntDesign
+                    name="hearto"
+                    size={25}
+                    style={{marginRight: 10}}
+                  />
+                  <AntDesign
+                    name="message1"
+                    size={25}
+                    style={{marginRight: 10}}
+                  />
+                  <Feather name="send" size={25} style={{marginRight: 10}} />
+                </View>
+                <Text>25 minutes ago</Text>
+              </View>
             </View>
-          </View>)
+          );
         })}
       </ScrollView>
     </View>
@@ -118,6 +130,16 @@ const styles = StyleSheet.create({
   userInfo: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+
+  userPic: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderColor: 'red',
+    borderWidth: 2,
+    alignItems:'center',
+    justifyContent:'center'
   },
   userName: {
     marginLeft: 10,
